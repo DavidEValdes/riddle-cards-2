@@ -27,9 +27,14 @@ function App() {
   const showNextCard = () => {
     setFlipped(false); 
     setTimeout(() => {
-      setCurrentIndex((currentIndex + 1) % cards.length); 
-    }, 150); // Adjusts delay for card answer change 
-  };
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * cards.length);
+      } while (randomIndex === currentIndex); 
+      
+      setCurrentIndex(randomIndex);
+    }, 150);
+};
 
 
   return (
@@ -42,7 +47,6 @@ function App() {
           <div><span className="color-answer">Red</span> = Answer</div>
         </div>
         <p>Total Riddles: 10</p>
-        <p>Current Riddle: {currentIndex + 1} </p>
       </header>
       <div className="card-container">
         <div className={`card ${flipped ? 'flipped' : ''}`} onClick={flipCard}>
