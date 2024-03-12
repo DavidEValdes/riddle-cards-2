@@ -42,7 +42,7 @@ function App() {
           <div><span className="color-answer">Red</span> = Answer</div>
         </div>
         <p>Total Riddles: 10</p>
-        <p>Current Riddle:{currentIndex + 1} </p>
+        <p>Current Riddle: {currentIndex + 1} </p>
       </header>
       <div className="card-container">
         <div className={`card ${flipped ? 'flipped' : ''}`} onClick={flipCard}>
