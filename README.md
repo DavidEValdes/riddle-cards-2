@@ -4,7 +4,7 @@ Submitted by: **David Valdes**
 
 This web app: **Challenge yourself with a series of intriguing riddles**
 
-Time spent: **5** hours spent in total
+Time spent: **4.5** hours spent in total
 
 ## Required Features
 
