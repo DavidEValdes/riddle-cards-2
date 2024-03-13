@@ -4,7 +4,7 @@ Submitted by: **David Valdes**
 
 This web app: **Challenge yourself with a series of intriguing riddles**
 
-Time spent: **4** hours spent in total
+Time spent: **5** hours spent in total
 
 ## Required Features
 
@@ -19,8 +19,13 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [ ] Cards contains images in addition to or in place of text
-- [ ] Cards have different visual styles such as color based on their category
+- [X] Cards have different visual styles such as color based on their category
 - [X] *Thematic styling implemented*
+
+The following **additional** features are implemented:
+
+- [X] Legend for card category
+
 
 ## Video Walkthrough
 
