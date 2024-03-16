@@ -1,34 +1,29 @@
-# Web Development Project 2 - *Riddle Cards*
+# Web Development Project 3 - *Name of App Here*
 
-Submitted by: **David Valdes**
+Submitted by: **Your Name Here**
 
-This web app: **Challenge yourself with a series of intriguing riddles**
+This web app: **insert description**
 
-Time spent: **4.5** hours spent in total
+Time spent: **X** hours spent in total
 
 ## Required Features
 
 The following **required** functionality is completed:
 
-- [X] **The title of the card set and some information about it, such as a short description and the total number of cards are displayed**
-- [X] **A single card at a time is displayed, only showing one of the components of the information pair**
-- [X] **A list of card pairs is created**
-- [X] **Clicking on the card shows the corresponding component of the information pair**
-- [X] **Clicking the next button displays a random new card**
+- [ ] **The user can enter their guess in a box before seeing the flipside of the card**
+- [ ] **Clicking on a submit button shows visual feedback about whether the answer was correct or incorrect**
+- [ ] **A back button is displayed on the card and can be used to return to the previous card in a set sequence**
+- [ ] **A next button is displayed on the card and can be used to navigate to the next card in a set sequence**
 
 The following **optional** features are implemented:
 
-- [ ] Cards contains images in addition to or in place of text
-- [X] Cards have different visual styles such as color based on their category
-- [X] *Thematic styling implemented*
+- [ ] A shuffle button is used to randomize the order of the cards
+- [ ] A user's answer may be counted as correct even when it is slightly different from the target answer
+- [ ] A counter displays the user's current and longest streak of correct responses
+- [ ] A user can mark a card that they have mastered and have it removed from the pool of answers as well as added to a list of mastered cards
 
 The following **additional** features are implemented:
 
-- [X] Legend for card category
-
+* [ ] List anything else that you added to improve the site's functionality!
 
 ## Video Walkthrough
-
-Here's a walkthrough of implemented required features:
-
-![ezgif com-video-to-gif-converter](https://github.com/DavidEValdes/riddle-cards/assets/36570117/cbf37e9a-6c20-4be7-9b4a-6782cd67e1fb)
