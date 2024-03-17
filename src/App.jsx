@@ -14,6 +14,8 @@ function App() {
     { riddle: "What has many keys but can't open a single lock?", answer: "A computer keyboard" },
     { riddle: "What can fill a room but takes up no space?", answer: "Light" }
   ]);
+
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [userGuess, setUserGuess] = useState('');
@@ -23,6 +25,8 @@ function App() {
   const [longestStreak, setLongestStreak] = useState(0);
   const [masteredCards, setMasteredCards] = useState([]);
   const [showMasteredList, setShowMasteredList] = useState(false);
+  const [hasAnswered, setHasAnswered] = useState(false); 
+
 
   const flipCard = () => {
     setFlipped(!flipped);
@@ -34,7 +38,10 @@ function App() {
     return str.toLowerCase().replace(/[\W_]+/g, "").trim();
   };
   
+
   const submitGuess = () => {
+    if (hasAnswered) return;
+
     const userGuessNormalized = normalizeString(userGuess);
     const answerNormalized = normalizeString(cards[currentIndex].answer);
   
@@ -45,11 +52,15 @@ function App() {
         setLongestStreak(currentStreak + 1);
       }
       setFlipped(true);
+      setHasAnswered(true); 
     } else {
       setFeedback('Incorrect, try again!');
       setCurrentStreak(0);
     }
+    setUserGuess(''); 
   };
+
+  
   const markCardAsMastered = () => {
     const masteredCard = cards[currentIndex];
     setMasteredCards([...masteredCards, masteredCard]); 
@@ -68,7 +79,6 @@ function App() {
 };
 
 
-
 const toggleMasteredList = () => {
   setShowMasteredList(!showMasteredList);
 };
@@ -77,6 +87,7 @@ const toggleMasteredList = () => {
     setFlipped(false);
     setFeedback(''); 
     setUserGuess('');
+    setHasAnswered(false);
     let nextIndex = (currentIndex + 1) % cards.length;
     setCurrentIndex(nextIndex);
     setHistory([...history, nextIndex]); 
@@ -97,16 +108,19 @@ const toggleMasteredList = () => {
   const shuffleCards = () => {
     let shuffledCards = [...cards];
     for (let i = shuffledCards.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]]; // Swap
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]]; // Swap
     }
     setCards(shuffledCards);
-    setCurrentIndex(0); 
-    setHistory([0]); 
-    setFlipped(false);
+    setCurrentIndex(0); // Ensure we start with the first card in the shuffled deck
+    setFlipped(false); 
     setFeedback(''); 
     setUserGuess(''); 
-  };
+    setHasAnswered(false); 
+
+};
+
+
 
   return (
     <div className="App">
@@ -137,7 +151,6 @@ const toggleMasteredList = () => {
           </div>
         </div>
         <button className="btn shuffle" onClick={shuffleCards}>Shuffle Cards</button>
-        
         </div>
         <button className="btn back" onClick={showPreviousCard}>←</button>
         <button className="btn next" onClick={showNextCard}>→</button>
@@ -159,7 +172,6 @@ const toggleMasteredList = () => {
         </ul>
         </div>
       )}
-        
        </div> 
         {feedback && <p style={{ marginTop: '30px' }} >{feedback}</p>}
         <input 
@@ -176,7 +188,6 @@ const toggleMasteredList = () => {
           className = "btn submit"
           style={{ marginTop: '20px' }}>Submit</button>  
     </div>
-    
   );
 }
 
