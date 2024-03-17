@@ -24,3 +24,5 @@ The following **optional** features are implemented:
 
 
 ## Video Walkthrough
+
+![ScreenRecording2024-03-17at3 03 27AM-ezgif com-video-to-gif-converter](https://github.com/DavidEValdes/riddle-cards-2/assets/36570117/1c49a4cd-01e0-464b-8574-13d154903f6d)
