@@ -139,8 +139,8 @@ const toggleMasteredList = () => {
         <button className="btn shuffle" onClick={shuffleCards}>Shuffle Cards</button>
         
         </div>
-        <button className="btn back" onClick={showPreviousCard}>Back</button>
-        <button className="btn next" onClick={showNextCard}>Next</button>
+        <button className="btn back" onClick={showPreviousCard}>←</button>
+        <button className="btn next" onClick={showNextCard}>→</button>
        <div>
         <div>
         <button className="btn mastered" onClick={markCardAsMastered}>Mark as Mastered</button>
