@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import './App.css'; 
+import './App.css';
 
 function App() {
-
   const [cards, setCards] = useState([
     { riddle: "What can travel around the world while staying in a corner?", answer: "A stamp" },
     { riddle: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?", answer: "An echo" },
@@ -15,27 +14,99 @@ function App() {
     { riddle: "What has many keys but can't open a single lock?", answer: "A computer keyboard" },
     { riddle: "What can fill a room but takes up no space?", answer: "Light" }
   ]);
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [userGuess, setUserGuess] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const [history, setHistory] = useState([0]);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [longestStreak, setLongestStreak] = useState(0);
+  const [masteredCards, setMasteredCards] = useState([]);
+  const [showMasteredList, setShowMasteredList] = useState(false);
 
   const flipCard = () => {
     setFlipped(!flipped);
   };
 
 
-  const showNextCard = () => {
-    setFlipped(false); 
-    setTimeout(() => {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * cards.length);
-      } while (randomIndex === currentIndex); 
-      
-      setCurrentIndex(randomIndex);
-    }, 150);
+  //Used to convert lowercase and removes all non-alphanumeric characters
+  const normalizeString = (str) => {
+    return str.toLowerCase().replace(/[\W_]+/g, "").trim();
+  };
+  
+  const submitGuess = () => {
+    const userGuessNormalized = normalizeString(userGuess);
+    const answerNormalized = normalizeString(cards[currentIndex].answer);
+  
+    if (userGuessNormalized === answerNormalized) {
+      setFeedback('Correct!');
+      setCurrentStreak(currentStreak + 1);
+      if (currentStreak + 1 > longestStreak) {
+        setLongestStreak(currentStreak + 1);
+      }
+      setFlipped(true);
+    } else {
+      setFeedback('Incorrect, try again!');
+      setCurrentStreak(0);
+    }
+  };
+  const markCardAsMastered = () => {
+    const masteredCard = cards[currentIndex];
+    setMasteredCards([...masteredCards, masteredCard]); 
+
+    // Remove from current cards list
+    const updatedCards = cards.filter((_, index) => index !== currentIndex);
+    setCards(updatedCards);
+
+    
+    if (updatedCards.length > 0) {
+        setCurrentIndex(currentIndex % updatedCards.length);
+    } else {
+        alert("Congratulations! You have mastered all cards!");
+       
+    }
 };
 
+
+
+const toggleMasteredList = () => {
+  setShowMasteredList(!showMasteredList);
+};
+
+  const showNextCard = () => {
+    setFlipped(false);
+    setFeedback(''); 
+    setUserGuess('');
+    let nextIndex = (currentIndex + 1) % cards.length;
+    setCurrentIndex(nextIndex);
+    setHistory([...history, nextIndex]); 
+  };
+
+  const showPreviousCard = () => {
+    if (history.length > 1) {
+      setFlipped(false);
+      setFeedback(''); 
+      setUserGuess(''); 
+      let newHistory = [...history];
+      newHistory.pop();
+      setHistory(newHistory);
+      setCurrentIndex(newHistory[newHistory.length - 1]);
+    }
+  };
+
+  const shuffleCards = () => {
+    let shuffledCards = [...cards];
+    for (let i = shuffledCards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]]; // Swap
+    }
+    setCards(shuffledCards);
+    setCurrentIndex(0); 
+    setHistory([0]); 
+    setFlipped(false);
+    setFeedback(''); 
+    setUserGuess(''); 
+  };
 
   return (
     <div className="App">
@@ -47,19 +118,65 @@ function App() {
           <div><span className="color-answer">Red</span> = Answer</div>
         </div>
         <p>Total Riddles: 10</p>
+        <div className="streak-info">
+          <p>Current Streak: {currentStreak}</p>
+          <p>Longest Streak: {longestStreak}</p>
+        </div>
       </header>
       <div className="card-container">
         <div className={`card ${flipped ? 'flipped' : ''}`} onClick={flipCard}>
           <div className="card-face card-front">
-            {cards[currentIndex].riddle}
+            {!flipped && (
+              <>
+                <p>{cards[currentIndex].riddle}</p>
+              </>
+            )}
           </div>
           <div className="card-face card-back">
             {cards[currentIndex].answer}
           </div>
         </div>
-        <button className="btn next" onClick={showNextCard}>Next Riddle</button>
-      </div>
+        <button className="btn shuffle" onClick={shuffleCards}>Shuffle Cards</button>
+        
+        </div>
+        <button className="btn back" onClick={showPreviousCard}>Back</button>
+        <button className="btn next" onClick={showNextCard}>Next</button>
+       <div>
+        <div>
+        <button className="btn mastered" onClick={markCardAsMastered}>Mark as Mastered</button>
+        <button className="btn masteredList" onClick={toggleMasteredList}>Show Mastered Cards</button>
+        {showMasteredList && (
+        <div className="mastered-cards-list">
+          <h3>Mastered Cards</h3>
+          <ul>
+          {masteredCards.map((card, index) => (
+            <li key={index} style={{ marginBottom: '20px' }}>
+             <div className="question">{card.riddle}</div>
+              <br />
+              <div className="answer">Answer: {card.answer}</div>
+            </li>
+          ))}
+        </ul>
+        </div>
+      )}
+        
+       </div> 
+        {feedback && <p style={{ marginTop: '30px' }} >{feedback}</p>}
+        <input 
+          type="text" 
+          value={userGuess} 
+          onChange={(e) => setUserGuess(e.target.value)} 
+          placeholder="Enter your guess" 
+          className="input-guess"
+          style={{ marginTop: '20px' }} 
+        />
+        </div>
+       <button 
+          onClick={submitGuess}
+          className = "btn submit"
+          style={{ marginTop: '20px' }}>Submit</button>  
     </div>
+    
   );
 }
 

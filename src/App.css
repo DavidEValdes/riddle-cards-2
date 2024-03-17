@@ -6,10 +6,13 @@ body, html {
   justify-content: center;
   align-items: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5;
-  background-image: url('https://files.oaiusercontent.com/file-QanovspvWdsN646Hn0Ia9vS5?se=2024-03-12T22%3A34%3A48Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3D1b3234ed-e80c-4ae0-8eca-1f9c4266bfb9.webp&sig=mYFaaxy%2B6TfHGdsb3fAIUywYCiEFt31PNVHH7OSX8Yg%3D');
+  background-color: #c3c3c3;
+  background-image: url('https://www.fluentu.com/blog/chinese/wp-content/uploads/2017/08/chinese-question-words-1024x683.jpg');
   color: #c0c0c0;
   background-position: center; 
+  background-size: cover; /* Make sure the image covers the whole screen */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-attachment: fixed; /* Optional: Ensure the background image is fixed during scroll */
 }
 
 .App {
@@ -124,4 +127,37 @@ body, html {
 .color-answer {
   color: #ca431b; 
   font-weight: bold; 
+}
+
+.question {
+  margin-bottom: 10px;
+  font-weight: bold; /* Make the question bold */
+  color: #cdcece;
+}
+
+.answer {
+  color: #cbd880; /* A slightly muted color for the answer */
+}
+
+.input-guess {
+  width: calc(100% - 40px);
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 4px solid #241ed1d8;
+  border-radius: 20px;
+  color: #333;
+  font-size: 16px;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-guess::placeholder {
+  color: #666;
+}
+
+.input-guess:focus {
+  border-color: #ca431b;
+  box-shadow: 0 0 0 3px rgba(202, 67, 27, 0.2);
 }
