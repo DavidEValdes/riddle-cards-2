@@ -27,6 +27,7 @@ The following **optional** features are implemented:
 
 ![ezgif com-video-to-gif-converter](https://github.com/DavidEValdes/riddle-cards-2/assets/36570117/2913e123-ba5d-483b-9fde-b1f2de6b0b48)
 
+
 ## License
 
     Copyright [2024] [David Valdes]
